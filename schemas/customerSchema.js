@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var customerSchema = new Schema({
     CustId: Number,
     CustName: String,
-    CistEmail: String,
+    CustEmail: String,
+    CustPhone: String,
     PlateNum: String
 });
 

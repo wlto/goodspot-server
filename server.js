@@ -17,6 +17,57 @@ app.get('/customers', (req, res) => {
         console.log(err);
     });
 });
+app.put("/customers/:customerId", (req, res) => {
+
+    data.updateCustomerById(req.params.customerId, req.body).then((data)=>{
+        res.json({"message": "Customer " + data + " updated successfully"});
+    })
+    .catch((err)=>{
+        res.status(500).end();
+    })
+});
+
+app.post("/customers", (req, res) => {
+    
+    data.addCustomer(req.body).then((data)=>{
+        res.json({"message": "Customer " + data + " added successfully"});
+    })
+    .catch((err)=>{
+        res.status(500).end();
+    })
+});
+app.get('/hosts', (req, res) => {
+    serverData.getAllHosts().then((data) => {
+        console.log(data);
+        res.json(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+app.get('/postings', (req, res) => {
+    serverData.getAllPostings().then((data) => {
+        console.log(data);
+        res.json(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+app.get('/locations', (req, res) => {
+    serverData.getAllLocations().then((data) => {
+        console.log(data);
+        res.json(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+});
+app.get('/invoices', (req, res) => {
+    serverData.getAllInvoices().then((data) => {
+        console.log(data);
+        res.json(data);
+    }).catch((err) => {
+        console.log(err);
+    });
+});
 
 serverData.connect().then(() => {
     app.listen(8080, () => {
