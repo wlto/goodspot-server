@@ -7,7 +7,8 @@ var postingSchema = new Schema({
     Price: Number,
     FromTime: Date,
     ToTime: Date,
-    HostIdFK: Number
+    HostIdFK: { type: Schema.Types.ObjectId, ref: 'Hosts' },
+    LocationIdFK: { type: Schema.Types.ObjectId, ref: 'Locations' }
 });
 
 module.exports = postingSchema;
