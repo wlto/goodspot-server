@@ -122,6 +122,11 @@ app.get('/invoices', (req, res) => {
     });
 });
 
+app.post('/submit', (req, res) => {
+    const submissionData = req.body.submission;
+    console.log(submissionData);
+});
+
 serverData.connect().then(() => {
     app.listen(port, () => {
         console.log('Listening at port ' + port);

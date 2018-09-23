@@ -89,7 +89,7 @@ module.exports = function (connectionString) {
         updatePostingById: function (postingId, postingData) {
             return new Promise(function (resolve, reject) {
                 if (Object.keys(postingData).length > 0) { // if there is data to update
-                    Postings.update({ _id: postingId }, // replace the current employee with data from employeeData
+                    Postings.update({ _id: postingId },
                         {
                             $set: postingData
                         },
