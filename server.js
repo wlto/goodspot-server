@@ -68,7 +68,6 @@ app.post('/testdistance', (req, res) => {
     const userDistance = req.body.distanceFromLocation || 2000;
     let destinations = [];
     let destinationObjs = [];
-    let indices = [];
     let places = [];
 
     // Get server data for list of postings
