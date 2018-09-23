@@ -82,8 +82,10 @@ app.post('/testdistance', (req, res) => {
             destinationObjs.push(element);
         }, this);
 
+        // console.log(dist)
         distance.matrix([userAddress], destinations, (err, distances) => {
             if (!err) {
+                console.log(distances.rows[0].elements);
                 distances.rows[0].elements.forEach((ele, i)=>{
                     if (ele.distance.value < userDistance && destinationObjs[i].Available) {
                         places.push(destinationObjs[i]);
