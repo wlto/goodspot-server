@@ -86,18 +86,15 @@ app.post('/testdistance', (req, res) => {
         distance.matrix([userAddress], destinations, (err, distances) => {
             if (!err) {
                 // console.log(distances.rows[0].elements);
-                if (distances.rows[0].elements.length > 0) {
+                // if (distances.rows[0].elements.length > 0) {
                     distances.rows[0].elements.forEach((ele, i)=>{
-                        console.log('------');
-                        console.log(ele);
-                        console.log('------');
-                        console.log(i);
-                        console.log('------');
-                        if (ele.distance.value < userDistance && destinationObjs[i].Available) {
-                            places.push(destinationObjs[i]);
-                        }
+                        try {
+                            if (ele.distance.value < userDistance && destinationObjs[i].Available) {
+                                places.push(destinationObjs[i]);
+                            }
+                        } catch (e) { console.log(e); }
                     })
-                }
+                // }
                 res.json(places);
             }       
         });
