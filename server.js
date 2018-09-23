@@ -27,6 +27,10 @@ app.put("/customers/:customerId", (req, res) => {
     })
 });
 
+app.post('/testdistance', (req, res) => {
+    console.log(req.body.address);
+});
+
 app.post("/customers", (req, res) => {
     
     data.addCustomer(req.body).then((data)=>{
