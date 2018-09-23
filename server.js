@@ -35,9 +35,9 @@ app.put("/customers/:customerId", (req, res) => {
 
 app.get('/testdistance', (req, res) => {
     const userAddress = req.body.address || '4800 Yonge Street';
+    const userDistance = req.body.distanceFromLocation || 2000;
     let destinations = [];
     let destinationObjs = [];
-    let indices = [];
     let places = [];
 
     // Get server data for list of postings
@@ -52,7 +52,7 @@ app.get('/testdistance', (req, res) => {
                 // console.log(distances.rows[0]);
                 distances.rows[0].elements.forEach((ele, i)=>{
                     console.log(ele);
-                    if (ele.distance.value < 2000) {
+                    if (ele.distance.value < userDistance) {
                         places.push(destinationObjs[i]);
                     }
                     // ele.distance.value < 5000 && indices.push([i, ele]);
