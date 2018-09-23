@@ -70,10 +70,10 @@ app.post('/testdistance', (req, res) => {
     let destinations = [];
     let destinationObjs = [];
     let places = [];
-    console.log('userAddress: ' + userAddress);
-    console.log(req.body);
-    console.log('req.body.distanceFromLocation: ' + req.body.distanceFromLocation);
-    console.log('userDistance: ' + userDistance);
+    // console.log('userAddress: ' + userAddress);
+    // console.log(req.body);
+    // console.log('req.body.distanceFromLocation: ' + req.body.distanceFromLocation);
+    // console.log('userDistance: ' + userDistance);
 
     // Get server data for list of postings
     serverData.getAllPostings().then((postings) => {
@@ -84,7 +84,6 @@ app.post('/testdistance', (req, res) => {
 
         distance.matrix([userAddress], destinations, (err, distances) => {
             if (!err) {
-                console.log('Data length: ' + distances.rows[0].elements.length);
                 distances.rows[0].elements.forEach((ele, i)=>{
                     if (ele.distance.value < userDistance) {
                         places.push(destinationObjs[i]);
