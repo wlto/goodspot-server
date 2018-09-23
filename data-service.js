@@ -74,8 +74,6 @@ module.exports = function (connectionString) {
                 });
             });
         },
-
-        
         getAllPostings: function () {
             return new Promise(function (resolve, reject) {
                 Postings.find()
