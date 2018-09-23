@@ -14,6 +14,9 @@ const serverData = dataService(connectionString);
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.get('/customers', (req, res) => {
     serverData.getAllCustomers().then((data) => {
