@@ -33,26 +33,30 @@ app.put("/customers/:customerId", (req, res) => {
         })
 });
 
-app.post('/testdistance', (req, res) => {
+app.get('/testdistance', (req, res) => {
     const userAddress = req.body.address || '100 Yonge Street';
     let destinations = [];
+    let destinationObjs = [];
     let indices = [];
+    let places = [];
 
     // Get server data for list of postings
-    serverData.getAllPostings().then((data) => {
-        data.forEach(function (element) {
+    serverData.getAllPostings().then((postings) => {
+        postings.forEach(function (element) {
             destinations.push(element.Address);
+            destinationObjs.push(element);
         }, this);
 
         distance.matrix([userAddress], destinations, (err, distances) => {
             if (!err) {
-                //distances.rows.elements.forEach((ele, i) => {
-                //    ele.distance < 2000 && indices.push([i, ele])
-                //})
+                console.log(distances.rows[0]);
                 distances.rows[0].elements.forEach((ele, i)=>{
-                    ele.distance.value < 5000 && indices.push([i, ele]);
+                    if (ele.distance.value < 5000) {
+                        places.push(destinationObjs[i]);
+                    }
+                    // ele.distance.value < 5000 && indices.push([i, ele]);
                 })
-                res.json(indices);
+                res.json(places);
             }       
         });
     })
