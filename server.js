@@ -14,6 +14,7 @@ const serverData = dataService(connectionString);
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.bodyParser());
 
 app.get('/customers', (req, res) => {
     serverData.getAllCustomers().then((data) => {
