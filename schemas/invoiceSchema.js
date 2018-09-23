@@ -2,10 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var invoiceSchema = new Schema({
-    InvoiceId: Number,
-    Total: Number,
+    CustIdFK: { type: Schema.Types.ObjectId, ref: 'Customers' },
     PostingIdFK: { type: Schema.Types.ObjectId, ref: 'Postings' },
-    CustIdFK: { type: Schema.Types.ObjectId, ref: 'Customers' }
+    Total: Number
 });
 
 module.exports = invoiceSchema;
