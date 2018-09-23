@@ -88,13 +88,55 @@ app.post('/testdistance', (req, res) => {
                 // console.log(distances.rows[0].elements);
                 if (distances.rows[0].elements.length > 0) {
                     distances.rows[0].elements.forEach((ele, i)=>{
+                        console.log('------');
                         console.log(ele);
+                        console.log('------');
+                        console.log(i);
+                        console.log('------');
                         if (ele.distance.value < userDistance && destinationObjs[i].Available) {
                             places.push(destinationObjs[i]);
                         }
                     })
                 }
                 res.json(places);
+            }       
+        });
+    })
+}); 
+
+app.get('/testdistance', (req, res) => {
+    const userAddress = req.body.address || '700 Bloor Street';
+    const userDistance = req.body.distanceFromLocation || 2000;
+    let destinations = [];
+    let destinationObjs = [];
+    let places = [];
+    // console.log('userAddress: ' + userAddress);
+    // console.log(req.body);
+    // console.log('req.body.distanceFromLocation: ' + req.body.distanceFromLocation);
+    // console.log('userDistance: ' + userDistance);
+    let testData = [];
+
+    // Get server data for list of postings
+    serverData.getAllPostings().then((postings) => {
+        postings.forEach(function (element) {
+            destinations.push(element.Address);
+            destinationObjs.push(element);
+        }, this);
+
+        // console.log(dist)
+        distance.matrix([userAddress], destinations, (err, distances) => {
+            if (!err) {
+                // console.log(distances.rows[0].elements);
+                if (distances.rows[0].elements.length > 0) {
+                    distances.rows[0].elements.forEach((ele, i)=>{
+                        console.log(ele);
+                        testData.push(ele);
+                        if (ele.distance.value < userDistance && destinationObjs[i].Available) {
+                            places.push(destinationObjs[i]);
+                        }
+                    })
+                }
+                res.json(testData);
             }       
         });
     })
