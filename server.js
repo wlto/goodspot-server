@@ -12,7 +12,6 @@ const connectionString = 'mongodb://goodspotu1:blahblahblah123@ds153978.mlab.com
 const dataService = require('./data-service.js');
 const serverData = dataService(connectionString);
 
-app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({
     extended: true
