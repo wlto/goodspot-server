@@ -85,7 +85,7 @@ app.post('/testdistance', (req, res) => {
         distance.matrix([userAddress], destinations, (err, distances) => {
             if (!err) {
                 distances.rows[0].elements.forEach((ele, i)=>{
-                    if (ele.distance.value < userDistance) {
+                    if (ele.distance.value < userDistance && destinationObjs[i].Available) {
                         places.push(destinationObjs[i]);
                     }
                     // ele.distance.value < 5000 && indices.push([i, ele]);
@@ -125,7 +125,13 @@ app.get('/invoices', (req, res) => {
 app.post('/submit', (req, res) => {
     const submissionData = req.body.submission;
     console.log(submissionData);
-    res.json({'successful': true});
+    serverData.updatePostingById(submissionData.postingId, { Available: false })
+    .then((data) => {
+        res.json({'successful': true});
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
 
 serverData.connect().then(() => {
