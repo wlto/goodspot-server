@@ -1,16 +1,12 @@
 const mongoose = require('mongoose');
 
 const customerSchema = require('./schemas/customerSchema.js');
-const hostSchema = require('./schemas/hostSchema.js');
 const postingSchema = require('./schemas/postingSchema.js');
-const locationSchema = require('./schemas/locationSchema.js');
 const invoiceSchema = require('./schemas/invoiceSchema.js');
 
 module.exports = function (connectionString) {
     let Customers;
-    let Hosts;
     let Postings;
-    let Locations;
     let Invoices;
 
     return {
@@ -24,8 +20,6 @@ module.exports = function (connectionString) {
 
                 db.once('open', () => {
                     Customers = db.model('customers', customerSchema);
-                    Hosts = db.model('hosts', hostSchema);
-                    Locations = db.model('locations', locationSchema);
                     Invoices = db.model('invoices', invoiceSchema);
                     Postings = db.model('postings', postingSchema);
                     
@@ -81,102 +75,7 @@ module.exports = function (connectionString) {
             });
         },
 
-        getAllHosts: function () {
-            return new Promise(function (resolve, reject) {
-                Hosts.find()
-                .exec()
-                .then(hosts => {
-                    resolve(hosts);
-                })
-                .catch(err => {
-                    reject(err);
-                });
-            });
-        },
-        updateHostById: function (hostId, hostData) {
-            return new Promise(function (resolve, reject) {
-                if (Object.keys(hostData).length > 0) { // if there is data to update
-                    Hosts.update({ _id: hostId }, // replace the current employee with data from employeeData
-                        {
-                            $set: hostData
-                        },
-                        { multi: false })
-                        .exec()
-                        .then(() => {
-                            resolve(hostId);
-                        })
-                        .catch((err) => {
-                            reject(err);
-                        });
-                } else {
-                    resolve();
-                }
-            });
-        },
-        addHost: function (hostData) {
-            return new Promise(function (resolve, reject) {
-                
-                // Create a newEmployee from the employeeData
-                var newHost = new Customers(hostData);
-
-                newHost.save((err,addedHost) => {
-                    if(err) {
-                        reject(err);
-                    } else {
-                        resolve(addedHost._id);
-                    }
-                });
-            });
-        },
-
-        getAllLocations: function () {
-            return new Promise(function (resolve, reject) {
-                Locations.find()
-                .exec()
-                .then(locations => {
-                    resolve(locations);
-                })
-                .catch(err => {
-                    reject(err);
-                });
-            });
-        },
-        updateLocationById: function (locationId, locationData) {
-            return new Promise(function (resolve, reject) {
-                if (Object.keys(locationData).length > 0) { // if there is data to update
-                    Locations.update({ _id: locationId }, // replace the current employee with data from employeeData
-                        {
-                            $set: locationData
-                        },
-                        { multi: false })
-                        .exec()
-                        .then(() => {
-                            resolve(locationId);
-                        })
-                        .catch((err) => {
-                            reject(err);
-                        });
-                } else {
-                    resolve();
-                }
-            });
-        },
-        addLocation: function (locationData) {
-            return new Promise(function (resolve, reject) {
-                
-                // Create a newEmployee from the employeeData
-                var newLocation = new Customers(locationData);
-
-                newLocation.save((err,addedLocation) => {
-                    if(err) {
-                        reject(err);
-                    } else {
-                        resolve(addedLocation._id);
-                    }
-                });
-            });
-        },
-
+        
         getAllPostings: function () {
             return new Promise(function (resolve, reject) {
                 Postings.find()
@@ -227,6 +126,7 @@ module.exports = function (connectionString) {
         getAllInvoices: function () {
             return new Promise(function (resolve, reject) {
                 Invoices.find()
+                .populate('custIdFK')
                 .exec()
                 .then(invoices => {
                     resolve(invoices);

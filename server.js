@@ -36,24 +36,8 @@ app.post("/customers", (req, res) => {
         res.status(500).end();
     })
 });
-app.get('/hosts', (req, res) => {
-    serverData.getAllHosts().then((data) => {
-        console.log(data);
-        res.json(data);
-    }).catch((err) => {
-        console.log(err);
-    });
-});
 app.get('/postings', (req, res) => {
     serverData.getAllPostings().then((data) => {
-        console.log(data);
-        res.json(data);
-    }).catch((err) => {
-        console.log(err);
-    });
-});
-app.get('/locations', (req, res) => {
-    serverData.getAllLocations().then((data) => {
         console.log(data);
         res.json(data);
     }).catch((err) => {
@@ -70,7 +54,7 @@ app.get('/invoices', (req, res) => {
 });
 
 serverData.connect().then(() => {
-    app.listen(8080, () => {
+    app.listen(3000, () => {
         console.log('Listening at port 8080');
     });
 });
