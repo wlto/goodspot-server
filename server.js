@@ -70,6 +70,7 @@ app.post('/testdistance', (req, res) => {
     let destinationObjs = [];
     let places = [];
     console.log('userAddress: ' + userAddress);
+    console.log('req.body: ' + req.body);
     console.log('req.body.distanceFromLocation: ' + req.body.distanceFromLocation);
     console.log('userDistance: ' + userDistance);
 
