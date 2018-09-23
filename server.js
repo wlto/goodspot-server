@@ -27,8 +27,9 @@ app.put("/customers/:customerId", (req, res) => {
     })
 });
 
-app.post('/testdistance', (req, res) => {
-    console.log(req.body.address);
+app.get('/testdistance', (req, res) => {
+    const userAddress = req.body.address || '100 Yonge Street';
+    console.log(userAddress);
 });
 
 app.post("/customers", (req, res) => {
