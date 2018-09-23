@@ -50,7 +50,7 @@ app.get('/testdistance', (req, res) => {
                 distances.rows[0].elements.forEach((ele, i)=>{
                     ele.distance.value < 5000 && indices.push([i, ele]);
                 })
-            console.log("indices", indices);
+                res.json(indices);
             }       
         });
     })
