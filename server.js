@@ -33,7 +33,7 @@ app.put("/customers/:customerId", (req, res) => {
         })
 });
 
-app.get('/testdistance', (req, res) => {
+app.post('/testdistance', (req, res) => {
     const userAddress = req.body.address || '100 Yonge Street';
     let destinations = [];
     let destinationObjs = [];
