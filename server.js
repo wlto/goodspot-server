@@ -125,6 +125,7 @@ app.get('/invoices', (req, res) => {
 app.post('/submit', (req, res) => {
     const submissionData = req.body.submission;
     console.log(submissionData);
+    res.json({'successful': true});
 });
 
 serverData.connect().then(() => {
