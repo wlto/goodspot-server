@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const distance = require('google-distance-matrix');
 distance.key('AIzaSyBIc5RryMRvxfw5HIuxXUrC16gjOQaf-4M');
+const cors = require('cors');
 
 const port = process.env.PORT || 3000;
 
@@ -12,6 +13,7 @@ const dataService = require('./data-service.js');
 const serverData = dataService(connectionString);
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/customers', (req, res) => {
     serverData.getAllCustomers().then((data) => {
