@@ -13,9 +13,8 @@ const dataService = require('./data-service.js');
 const serverData = dataService(connectionString);
 
 app.use(cors());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/customers', (req, res) => {
     serverData.getAllCustomers().then((data) => {
@@ -35,35 +34,35 @@ app.put("/customers/:customerId", (req, res) => {
         })
 });
 
-app.get('/testdistance', (req, res) => {
-    const userAddress = req.body.address || '4000 Yonge Street';
-    const userDistance = req.body.distanceFromLocation || 2000;
-    let destinations = [];
-    let destinationObjs = [];
-    let places = [];
+// app.get('/testdistance', (req, res) => {
+//     const userAddress = req.body.address || '4000 Yonge Street';
+//     const userDistance = req.body.distanceFromLocation || 2000;
+//     let destinations = [];
+//     let destinationObjs = [];
+//     let places = [];
 
-    // Get server data for list of postings
-    serverData.getAllPostings().then((postings) => {
-        postings.forEach(function (element) {
-            destinations.push(element.Address);
-            destinationObjs.push(element);
-        }, this);
+//     // Get server data for list of postings
+//     serverData.getAllPostings().then((postings) => {
+//         postings.forEach(function (element) {
+//             destinations.push(element.Address);
+//             destinationObjs.push(element);
+//         }, this);
 
-        distance.matrix([userAddress], destinations, (err, distances) => {
-            if (!err) {
-                // console.log(distances.rows[0]);
-                distances.rows[0].elements.forEach((ele, i)=>{
-                    console.log(ele);
-                    if (ele.distance.value < userDistance) {
-                        places.push(destinationObjs[i]);
-                    }
-                    // ele.distance.value < 5000 && indices.push([i, ele]);
-                })
-                res.json(places);
-            }       
-        });
-    })
-});
+//         distance.matrix([userAddress], destinations, (err, distances) => {
+//             if (!err) {
+//                 // console.log(distances.rows[0]);
+//                 distances.rows[0].elements.forEach((ele, i)=>{
+//                     console.log(ele);
+//                     if (ele.distance.value < userDistance) {
+//                         places.push(destinationObjs[i]);
+//                     }
+//                     // ele.distance.value < 5000 && indices.push([i, ele]);
+//                 })
+//                 res.json(places);
+//             }       
+//         });
+//     })
+// });
 
 app.post('/testdistance', (req, res) => {
     const userAddress = req.body.address || '4800 Yonge Street';
