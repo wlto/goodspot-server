@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const distance = require('google-distance-matrix');
 distance.key('AIzaSyBIc5RryMRvxfw5HIuxXUrC16gjOQaf-4M');
 
+const port = process.env.PORT || 3000;
+
 const connectionString = 'mongodb://goodspotu1:blahblahblah123@ds153978.mlab.com:53978/goodspot';
 
 const dataService = require('./data-service.js');
@@ -81,7 +83,7 @@ app.get('/invoices', (req, res) => {
 });
 
 serverData.connect().then(() => {
-    app.listen(3000, () => {
-        console.log('Listening at port 8080');
+    app.listen(port, () => {
+        console.log('Listening at port ' + port);
     });
 });
