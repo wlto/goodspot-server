@@ -41,8 +41,8 @@ module.exports = function (connectionString) {
         },
         updateCustomerById: function (customerId, customerData) {
             return new Promise(function (resolve, reject) {
-                if (Object.keys(customerData).length > 0) { // if there is data to update
-                    Customers.update({ _id: customerId }, // replace the current employee with data from employeeData
+                if (Object.keys(customerData).length > 0) {
+                    Customers.update({ _id: customerId },
                         {
                             $set: customerData
                         },
@@ -109,7 +109,6 @@ module.exports = function (connectionString) {
         addPosting: function (postingData) {
             return new Promise(function (resolve, reject) {
                 
-                // Create a newEmployee from the employeeData
                 var newPosting = new Customers(postingData);
 
                 newPosting.save((err,addedPosting) => {
